@@ -108,6 +108,7 @@ const EventForm: React.FC = () => {
         initial="hidden"
         animate="visible"
       >
+        <h2>Test heading</h2>
         <motion.h2 
           className="text-center text-4xl font-bold mb-14 text-gray-800 tracking-tight"
           variants={itemVariants}
