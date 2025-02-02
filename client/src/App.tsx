@@ -1,15 +1,21 @@
-import React from 'react'
-// import { TestButton } from './components/TestButton'
-import EventForm from './Pages/event-form'
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import EventForm from "./Pages/event-form";
+import Dashboard from "./dashboard/dashboard";
 
 function App() {
   return (
-    <div className="container mx-auto p-4">check check check
-      {/* <h1 className="text-2xl font-bold mb-4">Shadcn UI Button Test</h1>
+ 
+      <div className="container mx-auto p-4">
+        {/* <h1 className="text-2xl font-bold mb-4">Shadcn UI Button Test</h1>
       <TestButton /> */}
-      <EventForm />
-    </div>
-  )
+        <Routes>
+          <Route path="/" element={<EventForm />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </div>
+
+  );
 }
 
-export default App
+export default App;
