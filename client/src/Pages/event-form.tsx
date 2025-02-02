@@ -94,12 +94,12 @@ const EventForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-blue-200 flex items-center justify-center ">
+    <div className="min-h-screen bg-blue-200 flex items-center justify-center p-2">
       <motion.div 
         className="w-full max-w-6xl bg-white rounded-3xl shadow-2xl overflow-hidden"
         style={{ 
           minHeight: '80vh', 
-          maxHeight: '98vh',
+          maxHeight: '100vh',
           padding: '3rem',
           display: 'flex',
           flexDirection: 'column'
@@ -108,7 +108,6 @@ const EventForm: React.FC = () => {
         initial="hidden"
         animate="visible"
       >
-        <h2>Test heading</h2>
         <motion.h2 
           className="text-center text-4xl font-bold mb-14 text-gray-800 tracking-tight"
           variants={itemVariants}
@@ -254,8 +253,6 @@ const EventForm: React.FC = () => {
           <Button 
             className="px-12 py-4 text-xl font-semibold bg-blue-800 hover:bg-blue-600 "
             onClick={handleNextStep}
-          //  whileHover={{ scale: 1.05 }}
-           // whileTap={{ scale: 0.95 }}
           >
             Next Step →
           </Button>
