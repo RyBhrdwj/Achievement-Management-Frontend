@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { MoreVertical, Filter, Trash2, Download } from 'lucide-react';
+import { MoreVertical, Filter, Trash2, Download, Calendar, Clock, User, CheckCircle, XCircle } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
@@ -28,6 +28,31 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import * as XLSX from 'xlsx';
+
+const getStatusStyles = (status: string) => {
+  switch(status.toLowerCase()) {
+    case 'pending':
+      return {
+        icon: <Clock className="h-4 w-4 mr-2 text-yellow-600" />,
+        textClass: "bg-yellow-50 text-yellow-700 border border-yellow-200 px-2 py-1 rounded-md inline-flex items-center",
+      };
+    case 'accepted':
+      return {
+        icon: <CheckCircle className="h-4 w-4 mr-2 text-green-600" />,
+        textClass: "bg-green-50 text-green-700 border border-green-200 px-2 py-1 rounded-md inline-flex items-center",
+      };
+    case 'rejected':
+      return {
+        icon: <XCircle className="h-4 w-4 mr-2 text-red-600" />,
+        textClass: "bg-red-50 text-red-700 border border-red-200 px-2 py-1 rounded-md inline-flex items-center",
+      };
+    default:
+      return {
+        icon: null,
+        textClass: "px-2 py-1 rounded-md inline-flex items-center",
+      };
+  }
+};
 
 interface Achievement {
   id: number;
@@ -378,7 +403,17 @@ export function RecentAchievements() {
                     </Badge>
 
                   </TableCell>
-                  <TableCell className="text-gray-600">{achievement.status}</TableCell>
+                  <TableCell className="text-gray-600">
+                    {(() => {
+                      const { icon, textClass } = getStatusStyles(achievement.status);
+                      return (
+                        <span className={textClass}>
+                          {icon}
+                          {achievement.status}
+                        </span>
+                      );
+                    })()}
+                  </TableCell>
                   <TableCell>
                     <Button variant="ghost"  className="h-8 w-8">
                       <MoreVertical className="h-4 w-4" />
