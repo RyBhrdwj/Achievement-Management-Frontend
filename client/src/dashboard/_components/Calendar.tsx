@@ -15,12 +15,12 @@ export function Calendar() {
   });
 
   return (
-    <Card className="bg-black backdrop-blur-xl border border-slate-700 shadow-xl shadow-purple-800/20 rounded-2xl">
+    <Card className="bg-white backdrop-blur-xl border border-slate-200 shadow-xl rounded-2xl">
       <CardHeader>
         <div className="flex items-center justify-between px-2">
           <div className="flex items-center space-x-2">
-            <CalendarIcon className="h-6 w-6 text-purple-500" />
-            <CardTitle className="text-xl font-semibold text-white tracking-wide">
+            <CalendarIcon className="h-6 w-6 text-black" />
+            <CardTitle className="text-xl font-semibold tracking-wide">
               {format(currentDate, "MMMM yyyy")}
             </CardTitle>
           </div>
@@ -43,10 +43,10 @@ export function Calendar() {
                 className={`p-3 text-sm font-medium rounded-lg cursor-pointer transition-all duration-300 
                   ${
                     isToday
-                      ? "bg-gradient-to-br from-purple-500 to-indigo-500 text-white shadow-md shadow-purple-600/40 scale-110"
+                      ? "bg-gradient-to-br from-purple-500 text-white to-indigo-500 shadow-md shadow-purple-600/40 scale-110"
                       : "hover:bg-white/10"
                   } 
-                  ${isCurrentMonth ? "text-white" : "text-slate-500"}
+                  ${isCurrentMonth ? "" : "text-slate-500"}
                 `}
               >
                 {format(date, "d")}

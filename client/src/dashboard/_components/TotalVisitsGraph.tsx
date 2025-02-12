@@ -14,16 +14,16 @@ const data = [
 
 export function VisitsGraph() {
   return (
-    <Card className="bg-black backdrop-blur-lg border-slate-800/50">
+    <Card className="bg-white">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <div className="flex items-center space-x-2">
           <TrendingUp className="h-5 w-5 text-emerald-400" />
-          <CardTitle className="text-slate-100">Total Visits</CardTitle>
+          <CardTitle className="text-slate-800 lg:text-xl text-sm">Total Achievements</CardTitle>
         </div>
         <span className="text-emerald-400 text-sm font-medium">+12.5%</span>
       </CardHeader>
       <CardContent>
-        <div className="h-[300px] mt-4">
+        <div className="h-[150px] lg:h-[300px] mt-4 ">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={data}>
               <defs>
@@ -33,8 +33,8 @@ export function VisitsGraph() {
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-              <XAxis dataKey="name" stroke="#94a3b8" />
-              <YAxis stroke="#94a3b8" />
+              <XAxis dataKey="name" stroke="#94a3b8" className="text-xs sm:text-sm" />
+              <YAxis stroke="#94a3b8"  className="text-xs sm:text-sm"  />
               <Tooltip 
                 contentStyle={{ 
                   backgroundColor: '#1e293b',
