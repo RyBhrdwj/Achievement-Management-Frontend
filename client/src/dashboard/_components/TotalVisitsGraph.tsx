@@ -14,11 +14,11 @@ const data = [
 
 export function VisitsGraph() {
   return (
-    <Card className="bg-white">
+    <Card className="bg-white dark:bg-gray-800">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <div className="flex items-center space-x-2">
           <TrendingUp className="h-5 w-5 text-emerald-400" />
-          <CardTitle className="text-slate-800 lg:text-xl text-sm">Total Achievements</CardTitle>
+          <CardTitle className="text-slate-800 dark:text-gray-200 lg:text-xl text-sm">Total Achievements</CardTitle>
         </div>
         <span className="text-emerald-400 text-sm font-medium">+12.5%</span>
       </CardHeader>

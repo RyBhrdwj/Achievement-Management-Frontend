@@ -15,11 +15,11 @@ export function Calendar() {
   });
 
   return (
-    <Card className="bg-white backdrop-blur-xl border border-slate-200 shadow-xl rounded-2xl">
+    <Card className="bg-white dark:bg-gray-800 backdrop-blur-xl shadow-xl dark:shadow-black rounded-2xl">
       <CardHeader>
         <div className="flex items-center justify-between px-2">
           <div className="flex items-center space-x-2">
-            <CalendarIcon className="h-6 w-6 text-black" />
+            <CalendarIcon className="h-6 w-6" />
             <CardTitle className="text-xl font-semibold tracking-wide">
               {format(currentDate, "MMMM yyyy")}
             </CardTitle>

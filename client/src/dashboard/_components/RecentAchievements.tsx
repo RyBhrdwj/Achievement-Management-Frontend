@@ -222,18 +222,18 @@ export function RecentAchievements() {
   const activeFiltersCount = Object.values(filters).filter(Boolean).length;
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border">
+    <div className="rounded-lg shadow-sm border bg-white dark:bg-gray-800">
       <div className="p-6">
         <div className="flex justify-between items-center mb-4">
           <div>
-            <h2 className="text-xl font-semibold text-gray-900">Recent Achievements</h2>
-            <p className="text-sm text-gray-500">A descriptive body text comes here</p>
+            <h2 className="text-xl font-semibold dark:text-gray-200 text-gray-900">Recent Achievements</h2>
+            <p className="text-sm dark:text-gray-300 text-gray-500">A descriptive body text comes here</p>
           </div>
           <div className="flex gap-2">
             <Button 
               variant="outline" 
               size="sm" 
-              className="text-gray-600"
+              className="dark:text-gray-200 text-gray-600 dark:hover:bg-gray-900"
               onClick={handleDelete}
               disabled={selectedItems.length === 0}
             >
@@ -242,7 +242,7 @@ export function RecentAchievements() {
             </Button>
             <Dialog open={isFilterOpen} onOpenChange={setIsFilterOpen}>
               <DialogTrigger asChild>
-                <Button variant="outline" size="sm" className="text-gray-600">
+                <Button variant="outline" size="sm" className="dark:text-gray-200 text-gray-600 dark:hover:bg-gray-900">
                   <Filter className="h-4 w-4 mr-2" />
                   Filters
                   {activeFiltersCount > 0 && (
@@ -350,7 +350,7 @@ export function RecentAchievements() {
             <Button 
               variant="outline" 
               size="sm" 
-              className="text-gray-600"
+              className="text-gray-600 dark:text-gray-200 dark:hover:bg-gray-900"
               onClick={handleExport}
             >
               <Download className="h-4 w-4 mr-2" />
@@ -359,10 +359,10 @@ export function RecentAchievements() {
           </div>
         </div>
 
-        <div className="border rounded-lg">
+        <div className="">
           <Table>
             <TableHeader>
-              <TableRow className="bg-gray-50">
+              <TableRow className="bg-gray-50 dark:bg-gray-900">
                 <TableHead className="w-12">
                   <Checkbox 
                     checked={selectedItems.length === achievements.length}
@@ -381,7 +381,7 @@ export function RecentAchievements() {
             </TableHeader>
             <TableBody>
               {achievements.map((achievement) => (
-                <TableRow key={achievement.id}>
+                <TableRow key={achievement.id} className='dark:hover:bg-gray-900'>
                   <TableCell>
                     <Checkbox 
                       checked={selectedItems.includes(achievement.id)}
@@ -389,10 +389,10 @@ export function RecentAchievements() {
                     />
                   </TableCell>
                   <TableCell className="font-medium">{achievement.name}</TableCell>
-                  <TableCell className="text-gray-600">{achievement.date}</TableCell>
-                  <TableCell className="text-gray-600">{achievement.type}</TableCell>
-                  <TableCell className="text-gray-600">{achievement.mode}</TableCell>
-                  <TableCell className="text-gray-600">{achievement.organizer}</TableCell>
+                  <TableCell className="text-gray-600 dark:text-gray-400">{achievement.date}</TableCell>
+                  <TableCell className="text-gray-600 dark:text-gray-400">{achievement.type}</TableCell>
+                  <TableCell className="text-gray-600 dark:text-gray-400">{achievement.mode}</TableCell>
+                  <TableCell className="text-gray-600 dark:text-gray-400">{achievement.organizer}</TableCell>
                   <TableCell>
                   <Badge 
                       variant={achievement.certificate === "Inactive" ? "secondary" : 
