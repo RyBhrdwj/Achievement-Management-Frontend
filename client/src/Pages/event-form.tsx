@@ -16,6 +16,8 @@ import { CalendarIcon, UploadIcon, AlertCircleIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { toast } from "@/components/ui/use-toast";
+import { useTheme } from "@/context/ThemeProvider";
+import { cn } from "@/lib/utils";
 
 type EventType = 
   | 'technical' 
@@ -28,8 +30,8 @@ type EventType =
 
 type ResultType = 'won' | 'runner-up' | 'participated';
 
-
 const EventForm: React.FC = () => {
+  const { theme } = useTheme();
   const [currentStep, setCurrentStep] = useState(1);
   const [eventName, setEventName] = useState('');
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -127,11 +129,16 @@ const EventForm: React.FC = () => {
           <div className="space-y-4">
             {/* Event Name */}
             <div className="flex flex-col">
-              <Label className="mb-2 text-[#333333]">Event Name</Label>
+              <Label className={cn("mb-2", theme === "dark" ? "text-white" : "text-[#333333]")}>Event Name</Label>
               <Input 
                 placeholder="Enter event name" 
-                className={`w-full px-3 py-2 border rounded-md text-[#333333] placeholder-[#B0B0B0] 
-                  ${errors.eventName ? 'border-red-500' : ''}`}
+                className={cn(
+                  "w-full px-3 py-2 border rounded-md",
+                  theme === "dark" 
+                    ? "text-white bg-[#2C2C2C] placeholder-[#AAAAAA]" 
+                    : "text-[#333333] bg-white placeholder-[#B0B0B0]",
+                  errors.eventName ? 'border-red-500' : ''
+                )}
                 value={eventName}
                 onChange={(e) => {
                   setEventName(e.target.value);
@@ -143,16 +150,21 @@ const EventForm: React.FC = () => {
 
             {/* Event Date */}
             <div className="flex flex-col">
-              <Label className="mb-2 text-[#333333]">Event Date</Label>
+              <Label className={cn("mb-2", theme === "dark" ? "text-white" : "text-[#333333]")}>Event Date</Label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button 
                     variant="outline" 
-                    className={`w-full justify-between text-[#333333] border-gray-300 
-                      ${errors.date ? 'border-red-500' : ''}`}
+                    className={cn(
+                      "w-full justify-between",
+                      theme === "dark" 
+                        ? "text-white border-gray-600" 
+                        : "text-[#333333] border-gray-300",
+                      errors.date ? 'border-red-500' : ''
+                    )}
                   >
                     {date ? format(date, "PPP") : "Select Date"}
-                    <CalendarIcon className="h-5 w-5 text-[#B0B0B0]" />
+                    <CalendarIcon className={cn("h-5 w-5", theme === "dark" ? "text-[#AAAAAA]" : "text-[#B0B0B0]")} />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0">
@@ -172,11 +184,16 @@ const EventForm: React.FC = () => {
 
             {/* Organized By */}
             <div className="flex flex-col">
-              <Label className="mb-2 text-[#333333]">Organized By</Label>
+              <Label className={cn("mb-2", theme === "dark" ? "text-white" : "text-[#333333]")}>Organized By</Label>
               <Input 
                 placeholder="Enter organization name" 
-                className={`w-full px-3 py-2 border rounded-md text-[#333333] placeholder-[#B0B0B0]
-                  ${errors.organizedBy ? 'border-red-500' : ''}`}
+                className={cn(
+                  "w-full px-3 py-2 border rounded-md",
+                  theme === "dark" 
+                    ? "text-white bg-[#2C2C2C] placeholder-[#AAAAAA]" 
+                    : "text-[#333333] bg-white placeholder-[#B0B0B0]",
+                  errors.organizedBy ? 'border-red-500' : ''
+                )}
                 value={organizedBy}
                 onChange={(e) => {
                   setOrganizedBy(e.target.value);
@@ -193,7 +210,7 @@ const EventForm: React.FC = () => {
           <div className="space-y-4">
             {/* Event Type */}
             <div className="flex flex-col">
-              <Label className="mb-2 text-[#333333]">Event Type</Label>
+              <Label className={cn("mb-2", theme === "dark" ? "text-white" : "text-[#333333]")}>Event Type</Label>
               <Select 
                 value={eventType}
                 onValueChange={(value: EventType) => {
@@ -202,7 +219,7 @@ const EventForm: React.FC = () => {
                   setErrors(prev => ({ ...prev, customEventType: undefined }));
                 }}
               >
-                <SelectTrigger className="w-full text-[#333333]">
+                <SelectTrigger className={cn("w-full", theme === "dark" ? "text-white" : "text-[#333333]")}>
                   <SelectValue placeholder="Select Event Type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -218,12 +235,16 @@ const EventForm: React.FC = () => {
             {/* Custom Event Type --grey text field abhi ke liye*/}
             {eventType === 'other' && (
               <div className="flex flex-col">
-                <Label className="mb-2 text-[#333333]">Custom Event Type</Label>
+                <Label className={cn("mb-2", theme === "dark" ? "text-white" : "text-[#333333]")}>Custom Event Type</Label>
                 <Input 
                   placeholder="Enter your custom event type" 
-                  className={`w-full px-3 py-2 border rounded-md 
-                    bg-[#F0F0F0] text-[#555555] cursor-not-allowed
-                    ${errors.customEventType ? 'border-red-500' : ''}`}
+                  className={cn(
+                    "w-full px-3 py-2 border rounded-md",
+                    theme === "dark" 
+                      ? "text-white bg-[#2C2C2C] placeholder-[#AAAAAA]" 
+                      : "text-[#333333] bg-white placeholder-[#B0B0B0]",
+                    errors.customEventType ? 'border-red-500' : ''
+                  )}
                   value={customEventType}
                   onChange={(e) => {
                     setCustomEventType(e.target.value);
@@ -237,21 +258,25 @@ const EventForm: React.FC = () => {
 
             {/* Event Mode -greenblack swithc*/}
             <div className="flex flex-col">
-              <Label className="mb-2 text-[#333333]">Event Mode</Label>
+              <Label className={cn("mb-2", theme === "dark" ? "text-white" : "text-[#333333]")}>Event Mode</Label>
               <div className="flex items-center space-x-4">
-                <span className={!isOffline ? "text-green-600 font-bold" : ""}>Online</span>
+                <span className={cn(!isOffline ? "text-green-600 font-bold" : "", theme === "dark" ? "text-[#AAAAAA]" : "")}>Online</span>
                 <Switch 
                   checked={isOffline} 
                   onCheckedChange={setIsOffline} 
-                  className={isOffline ? "bg-blue-500" : "bg-green-500"}
+                  className={cn(
+                    isOffline 
+                      ? (theme === "dark" ? "bg-[#6A11CB]" : "bg-blue-500") 
+                      : (theme === "dark" ? "bg-[#3C3C3C]" : "bg-green-500")
+                  )}
                 />
-                <span className={isOffline ? "text-green-600 font-bold" : ""}>Offline</span>
+                <span className={cn(isOffline ? "text-green-600 font-bold" : "", theme === "dark" ? "text-[#AAAAAA]" : "")}>Offline</span>
               </div>
             </div>
 
             {/* Result */}
             <div className="flex flex-col">
-              <Label className="mb-2 text-[#333333]">Result</Label>
+              <Label className={cn("mb-2", theme === "dark" ? "text-white" : "text-[#333333]")}>Result</Label>
               <Select 
                 value={result || ''}
                 onValueChange={(value: ResultType) => {
@@ -260,8 +285,13 @@ const EventForm: React.FC = () => {
                 }}
               >
                 <SelectTrigger 
-                  className={`w-full text-[#333333] 
-                    ${errors.result ? 'border-red-500' : ''}`}
+                  className={cn(
+                    "w-full",
+                    theme === "dark" 
+                      ? "text-white border-gray-600" 
+                      : "text-[#333333] border-gray-300",
+                    errors.result ? 'border-red-500' : ''
+                  )}
                 >
                   <SelectValue placeholder="Select Result" />
                 </SelectTrigger>
@@ -279,11 +309,16 @@ const EventForm: React.FC = () => {
             {/* Runner Up Position */}
             {result === 'runner-up' && (
               <div className="flex flex-col">
-                <Label className="mb-2 text-[#333333]">Runner Up Position</Label>
+                <Label className={cn("mb-2", theme === "dark" ? "text-white" : "text-[#333333]")}>Runner Up Position</Label>
                 <Input 
                   placeholder="Enter your position" 
-                  className={`w-full px-3 py-2 border rounded-md text-[#333333] placeholder-[#B0B0B0]
-                    ${errors.runnerUpPosition ? 'border-red-500' : ''}`}
+                  className={cn(
+                    "w-full px-3 py-2 border rounded-md",
+                    theme === "dark" 
+                      ? "text-white bg-[#2C2C2C] placeholder-[#AAAAAA]" 
+                      : "text-[#333333] bg-white placeholder-[#B0B0B0]",
+                    errors.runnerUpPosition ? 'border-red-500' : ''
+                  )}
                   value={runnerUpPosition}
                   onChange={(e) => {
                     setRunnerUpPosition(e.target.value);
@@ -301,21 +336,24 @@ const EventForm: React.FC = () => {
           <div className="space-y-4">
             {/* Certificates Upload */}
             <div className="flex flex-col">
-              <Label className="mb-2 text-[#333333]">Upload Certificates</Label>
+              <Label className={cn("mb-2", theme === "dark" ? "text-white" : "text-[#333333]")}>Upload Certificates</Label>
               <div 
-                className={`border-2 border-dashed rounded-lg p-3 text-center
-                  ${errors.certificateFiles ? 'border-red-500' : 'border-[#A0A0A0]'}`}
+                className={cn(
+                  "border-2 border-dashed rounded-lg p-3 text-center",
+                  theme === "dark" 
+                    ? "border-[#444444]" 
+                    : "border-[#A0A0A0]",
+                  errors.certificateFiles ? 'border-red-500' : ''
+                )}
                 onDragOver={handleDragOver}
                 onDrop={(e) => {
                   handleDrop(e, setCertificateFiles, 5);
                   setErrors(prev => ({ ...prev, certificateFiles: undefined }));
                 }}
               >
-                <UploadIcon className="mx-auto mb-2 text-[#A0A0A0] w-10 h-10" />
-                <p className="text-[#A0A0A0] mb-2 text-xs">
-                  Drag & Drop or Click to Upload
-                </p>
-                <p className="text-xs text-[#A0A0A0] mb-2">
+                <UploadIcon className={cn("mx-auto mb-2 w-10 h-10", theme === "dark" ? "text-[#AAAAAA]" : "text-[#A0A0A0]")} />
+                <p className={cn("text-xs", theme === "dark" ? "text-[#AAAAAA]" : "text-[#A0A0A0]")}>Drag & Drop or Click to Upload</p>
+                <p className={cn("text-xs", theme === "dark" ? "text-[#AAAAAA]" : "text-[#A0A0A0]")}>
                   Accepted formats: PDF, JPEG, PNG, WebP (Max 5 files)
                 </p>
                 <input 
@@ -331,13 +369,18 @@ const EventForm: React.FC = () => {
                 />
                 <label 
                   htmlFor="certificateUpload" 
-                  className="cursor-pointer bg-white border border-[#A0A0A0] rounded-md px-2 py-1 inline-block text-xs"
+                  className={cn(
+                    "cursor-pointer",
+                    theme === "dark" 
+                      ? "bg-[#2C2C2C] text-[#AAAAAA] border border-[#444444]" 
+                      : "bg-white text-black border border-[#A0A0A0]"
+                  )}
                 >
                   Choose Files
                 </label>
                 {certificateFiles.length > 0 && (
                   <div className="mt-2">
-                    <p className="text-xs">
+                    <p className={cn("text-xs", theme === "dark" ? "text-[#AAAAAA]" : "text-[#A0A0A0]")}>
                       {certificateFiles.length} file(s) selected
                     </p>
                   </div>
@@ -348,21 +391,24 @@ const EventForm: React.FC = () => {
 
             {/* Event Images Upload */}
             <div className="flex flex-col">
-              <Label className="mb-2 text-[#333333]">Upload Event Images</Label>
+              <Label className={cn("mb-2", theme === "dark" ? "text-white" : "text-[#333333]")}>Upload Event Images</Label>
               <div 
-                className={`border-2 border-dashed rounded-lg p-3 text-center
-                  ${errors.eventImageFiles ? 'border-red-500' : 'border-[#A0A0A0]'}`}
+                className={cn(
+                  "border-2 border-dashed rounded-lg p-3 text-center",
+                  theme === "dark" 
+                    ? "border-[#444444]" 
+                    : "border-[#A0A0A0]",
+                  errors.eventImageFiles ? 'border-red-500' : ''
+                )}
                 onDragOver={handleDragOver}
                 onDrop={(e) => {
                   handleDrop(e, setEventImageFiles, 5);
                   setErrors(prev => ({ ...prev, eventImageFiles: undefined }));
                 }}
               >
-                <UploadIcon className="mx-auto mb-2 text-[#A0A0A0] w-10 h-10" />
-                <p className="text-[#A0A0A0] mb-2 text-xs">
-                  Drag & Drop or Click to Upload
-                </p>
-                <p className="text-xs text-[#A0A0A0] mb-2">
+                <UploadIcon className={cn("mx-auto mb-2 w-10 h-10", theme === "dark" ? "text-[#AAAAAA]" : "text-[#A0A0A0]")} />
+                <p className={cn("text-xs", theme === "dark" ? "text-[#AAAAAA]" : "text-[#A0A0A0]")}>Drag & Drop or Click to Upload</p>
+                <p className={cn("text-xs", theme === "dark" ? "text-[#AAAAAA]" : "text-[#A0A0A0]")}>
                   Accepted formats: JPEG, PNG, WebP (Max 5 files)
                 </p>
                 <input 
@@ -378,13 +424,18 @@ const EventForm: React.FC = () => {
                 />
                 <label 
                   htmlFor="eventImageUpload" 
-                  className="cursor-pointer bg-white border border-[#A0A0A0] rounded-md px-2 py-1 inline-block text-xs"
+                  className={cn(
+                    "cursor-pointer",
+                    theme === "dark" 
+                      ? "bg-[#2C2C2C] text-[#AAAAAA] border border-[#444444]" 
+                      : "bg-white text-black border border-[#A0A0A0]"
+                  )}
                 >
                   Choose Files
                 </label>
                 {eventImageFiles.length > 0 && (
                   <div className="mt-2">
-                    <p className="text-xs">
+                    <p className={cn("text-xs", theme === "dark" ? "text-[#AAAAAA]" : "text-[#A0A0A0]")}>
                       {eventImageFiles.length} file(s) selected
                     </p>
                   </div>
@@ -433,22 +484,30 @@ const EventForm: React.FC = () => {
   const StepIndicator = () => {
     const stepTitles = ["Event Details", "Event Type", "Profile Data"];
     return (
-      <div className="text-center mb-8">
+      <div className={cn("text-center mb-8", theme === "dark" ? "text-[#AAAAAA]" : "text-gray-600")}>
         <div className="flex justify-between items-center mb-2">
           {[1, 2, 3].map((step) => (
             <div 
               key={step} 
-              className={`w-10 h-10 rounded-full flex items-center justify-center font-bold border-2
-                ${currentStep === step 
-                  ? 'bg-[#C7A4F5] text-white border-[#C7A4F5]' 
-                  : 'bg-[#D3D3D3] text-gray-600 border-[#D3D3D3]'
-                }`}
+              className={cn(
+                `w-10 h-10 rounded-full flex items-center justify-center font-bold border-2`,
+                currentStep === step 
+                  ? (theme === "dark" 
+                      ? "bg-[#6A11CB] text-white border-[#6A11CB]" 
+                      : "bg-[#C7A4F5] text-white border-[#C7A4F5]")
+                  : (theme === "dark" 
+                      ? "bg-[#2C2C2C] text-[#888888] border-[#2C2C2C]" 
+                      : "bg-[#D3D3D3] text-gray-600 border-[#D3D3D3]")
+              )}
             >
               {step}
             </div>
           ))}
         </div>
-        <div className="flex justify-between text-gray-600">
+        <div className={cn(
+          "flex justify-between",
+          theme === "dark" ? "text-[#BBBBBB]" : "text-gray-600"
+        )}>
           {stepTitles.map((title, index) => (
             <span key={index} className="text-sm">{title}</span>
           ))}
@@ -464,12 +523,24 @@ const EventForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#EAEAEA] flex items-center justify-center p-4">
+    <div 
+      className={cn(
+        "min-h-screen flex items-center justify-center p-4",
+        theme === "dark" 
+          ? "bg-[#121212] text-white" 
+          : "bg-[#EAEAEA] text-black"
+      )}
+    >
       <motion.div 
-        className="w-full max-w-md bg-white rounded-3xl shadow-lg p-6"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+        className={cn(
+          "w-full max-w-md shadow-lg rounded-xl p-6",
+          theme === "dark" 
+            ? "bg-[#1E1E1E] border border-[#2C2C2C]" 
+            : "bg-white"
+        )}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
       >
         {/* Step Indicator */}
         <StepIndicator />
@@ -481,19 +552,30 @@ const EventForm: React.FC = () => {
 
         {/* Navigation Buttons */}
         <div className="flex justify-between">
+          {currentStep > 1 && (
+            <Button 
+              variant="outline" 
+              onClick={handlePreviousStep}
+              className={cn(
+                "w-[45%]",
+                theme === "dark" 
+                  ? "bg-[#2C2C2C] text-white border-[#444444] hover:bg-[#3C3C3C]" 
+                  : "bg-white text-black"
+              )}
+            >
+              Previous
+            </Button>
+          )}
           <Button 
-            variant="outline" 
-            className="bg-[#D3D3D3] text-gray-700 hover:bg-[#C0C0C0]"
-            onClick={handlePreviousStep}
-            disabled={currentStep === 1}
-          >
-            Previous
-          </Button>
-          <Button 
-            className="bg-[#C7A4F5] text-white hover:bg-[#B085D4]"
             onClick={handleNextStep}
+            className={cn(
+              "w-[45%]",
+              theme === "dark" 
+                ? "bg-[#6A11CB] text-white hover:bg-[#5A10BB]" 
+                : "bg-[#C7A4F5] text-white hover:bg-[#B794F4]"
+            )}
           >
-            {currentStep === 3 ? 'Submit' : 'Next'}
+            {currentStep < 3 ? "Next" : "Submit"}
           </Button>
         </div>
       </motion.div>
