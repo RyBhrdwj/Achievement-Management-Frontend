@@ -84,7 +84,7 @@ const initialAchievements = [
     mode: "Regular text column",
     organizer: "Regular text column",
     status: "Accepted",
-    certificate: "Active"
+    certificate: "Submitted"
   },
   {
     id: 3,

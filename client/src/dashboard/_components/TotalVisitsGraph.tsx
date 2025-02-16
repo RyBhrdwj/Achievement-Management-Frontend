@@ -10,6 +10,12 @@ const data = [
   { name: 'Apr', visits: 2780 },
   { name: 'May', visits: 1890 },
   { name: 'Jun', visits: 2390 },
+  { name: 'Jul', visits: 1390 },
+  { name: 'Aug', visits: 3450 },
+  { name: 'Sep', visits: 4324 },
+  { name: 'Oct', visits: 2540 },
+  { name: 'Nov', visits: 2231 },
+  { name: 'Dec', visits: 1034 },
 ];
 
 export function VisitsGraph() {
