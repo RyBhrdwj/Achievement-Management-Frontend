@@ -11,6 +11,7 @@ import {
 import App from "./App";
 import "./index.css"; // or "./globals.css"
 import Navbar from "./navbar/navbar";
+import MentorDashboard from "./dashboard/mentor-dashboard";
 import Dashboard from "./dashboard/dashboard";
 import EventForm from "./Pages/event-form";
 
@@ -20,6 +21,7 @@ const Layout: React.FC = () => {
       <Route path="/" element={<App />}>
         <Route path="" element={<Dashboard />} />
         <Route path="add-event" element={<EventForm />} />
+        <Route path="/mentor/dashboard" element={<MentorDashboard />}></Route>
       </Route>
     )
   );
