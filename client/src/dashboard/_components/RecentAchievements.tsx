@@ -226,8 +226,8 @@ export function RecentAchievements() {
       <div className="p-6">
         <div className="flex justify-between items-center mb-4">
           <div>
-            <h2 className="text-xl font-semibold dark:text-gray-200 text-gray-900">Recent Achievements</h2>
-            <p className="text-sm dark:text-gray-300 text-gray-500">A descriptive body text comes here</p>
+            <h2 className="text-md sm:text-xl font-semibold dark:text-gray-200 text-gray-900">Recent Achievements</h2>
+            <p className="text-xs sm:text-sm dark:text-gray-300 text-gray-500">A descriptive body text comes here</p>
           </div>
           <div className="flex gap-2">
             <Button 
@@ -237,14 +237,14 @@ export function RecentAchievements() {
               onClick={handleDelete}
               disabled={selectedItems.length === 0}
             >
-              <Trash2 className="h-4 w-4 mr-2" />
-              Delete
+              <Trash2 className="h-4 w-4" />
+              <span className="hidden sm:inline">Delete</span>
             </Button>
             <Dialog open={isFilterOpen} onOpenChange={setIsFilterOpen}>
               <DialogTrigger asChild>
                 <Button variant="outline" size="sm" className="dark:text-gray-200 text-gray-600 dark:hover:bg-gray-900">
-                  <Filter className="h-4 w-4 mr-2" />
-                  Filters
+                  <Filter className="h-4 w-4" />
+                  <span className="hidden sm:inline">Filters</span>
                   {activeFiltersCount > 0 && (
                     <Badge variant="secondary" className="ml-2">
                       {activeFiltersCount}
@@ -353,8 +353,8 @@ export function RecentAchievements() {
               className="text-gray-600 dark:text-gray-200 dark:hover:bg-gray-900"
               onClick={handleExport}
             >
-              <Download className="h-4 w-4 mr-2" />
-              Export
+              <Download className="h-4 w-4" />
+              <span className="hidden sm:inline">Export</span>
             </Button>
           </div>
         </div>
