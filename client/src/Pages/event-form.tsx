@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState} from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { CalendarIcon, UploadIcon, AlertCircleIcon } from "lucide-react";
+import { CalendarIcon, AlertCircleIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { toast } from "@/components/ui/use-toast";
@@ -341,11 +341,11 @@ const EventForm: React.FC = () => {
               </Label>
               <FileUploadSection 
                 files={certificateFiles}
-                onFileChange={(newFiles) => {
+                onFileChange={(newFiles: File[]) => {
                   const limitedFiles = newFiles.slice(0, 5 - certificateFiles.length);
                   setCertificateFiles(prev => [...prev, ...limitedFiles]);
                 }}
-                onFileRemove={(index) => {
+                onFileRemove={(index: number) => {
                   const updatedFiles = [...certificateFiles];
                   updatedFiles.splice(index, 1);
                   setCertificateFiles(updatedFiles);
@@ -363,11 +363,11 @@ const EventForm: React.FC = () => {
               </Label>
               <FileUploadSection 
                 files={eventImageFiles}
-                onFileChange={(newFiles) => {
+                onFileChange={(newFiles: File[]) => {
                   const limitedFiles = newFiles.slice(0, 5 - certificateFiles.length);
                   setCertificateFiles(prev => [...prev, ...limitedFiles]);
                 }}
-                onFileRemove={(index) => {
+                onFileRemove={(index: number) => {
                   const updatedFiles = [...eventImageFiles];
                   updatedFiles.splice(index, 1);
                   setEventImageFiles(updatedFiles);
@@ -392,6 +392,14 @@ const EventForm: React.FC = () => {
     accept = ".jpg,.jpeg,.png,.pdf", 
     multiple = true,
     label = "Upload Files" 
+  }: { 
+    files: File[], 
+    onFileChange: (newFiles: File[]) => void, 
+    onFileRemove: (index: number) => void, 
+    accept?: string, 
+    multiple?: boolean,
+    label?: string,
+    maxFiles?: number
   }) => {
     const { theme } = useTheme();
 
@@ -525,33 +533,8 @@ const EventForm: React.FC = () => {
   };
 
   
-  const handleFileUpload = (
-    files: FileList | null, 
-    setFiles: React.Dispatch<React.SetStateAction<File[]>>, 
-    maxFiles: number
-  ) => {
-    if (files) {
-      const fileArray = Array.from(files).slice(0, maxFiles);
-      setFiles(fileArray);
-    }
-  };
 
   
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
-  const handleDrop = (
-    e: React.DragEvent<HTMLDivElement>, 
-    setFiles: React.Dispatch<React.SetStateAction<File[]>>, 
-    maxFiles: number
-  ) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const files = e.dataTransfer.files;
-    handleFileUpload(files, setFiles, maxFiles);
-  };
 
   
   const StepIndicator = () => {
