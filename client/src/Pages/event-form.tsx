@@ -335,113 +335,47 @@ const EventForm: React.FC = () => {
         return (
           <div className="space-y-4">
             {/* Certificates Upload */}
-            <div className="flex flex-col">
-              <Label className={cn("mb-2", theme === "dark" ? "text-white" : "text-[#333333]")}>Upload Certificates</Label>
-              <div 
-                className={cn(
-                  "border-2 border-dashed rounded-lg p-3 text-center",
-                  theme === "dark" 
-                    ? "border-[#444444]" 
-                    : "border-[#A0A0A0]",
-                  errors.certificateFiles ? 'border-red-500' : ''
-                )}
-                onDragOver={handleDragOver}
-                onDrop={(e) => {
-                  handleDrop(e, setCertificateFiles, 5);
-                  setErrors(prev => ({ ...prev, certificateFiles: undefined }));
+            <div>
+              <Label className={cn("mb-4", theme === "dark" ? "text-white" : "text-[#333333]")}>
+                Upload Certificates
+              </Label>
+              <FileUploadSection 
+                files={certificateFiles}
+                onFileChange={(newFiles) => {
+                  const limitedFiles = newFiles.slice(0, 5 - certificateFiles.length);
+                  setCertificateFiles(prev => [...prev, ...limitedFiles]);
                 }}
-              >
-                <UploadIcon className={cn("mx-auto mb-2 w-10 h-10", theme === "dark" ? "text-[#AAAAAA]" : "text-[#A0A0A0]")} />
-                <p className={cn("text-xs", theme === "dark" ? "text-[#AAAAAA]" : "text-[#A0A0A0]")}>Drag & Drop or Click to Upload</p>
-                <p className={cn("text-xs", theme === "dark" ? "text-[#AAAAAA]" : "text-[#A0A0A0]")}>
-                  Accepted formats: PDF, JPEG, PNG, WebP (Max 5 files)
-                </p>
-                <input 
-                  type="file" 
-                  accept=".pdf,.jpg,.jpeg,.png,.webp"
-                  multiple
-                  className="hidden"
-                  id="certificateUpload"
-                  onChange={(e) => {
-                    handleFileUpload(e.target.files, setCertificateFiles, 5);
-                    setErrors(prev => ({ ...prev, certificateFiles: undefined }));
-                  }}
-                />
-                <label 
-                  htmlFor="certificateUpload" 
-                  className={cn(
-                    "cursor-pointer",
-                    theme === "dark" 
-                      ? "bg-[#2C2C2C] text-[#AAAAAA] border border-[#444444]" 
-                      : "bg-white text-black border border-[#A0A0A0]"
-                  )}
-                >
-                  Choose Files
-                </label>
-                {certificateFiles.length > 0 && (
-                  <div className="mt-2">
-                    <p className={cn("text-xs", theme === "dark" ? "text-[#AAAAAA]" : "text-[#A0A0A0]")}>
-                      {certificateFiles.length} file(s) selected
-                    </p>
-                  </div>
-                )}
-                <ErrorMessage message={errors.certificateFiles} />
-              </div>
+                onFileRemove={(index) => {
+                  const updatedFiles = [...certificateFiles];
+                  updatedFiles.splice(index, 1);
+                  setCertificateFiles(updatedFiles);
+                }}
+                label="Click to upload certificates (PDF, JPG, PNG, max 5 files)"
+                accept=".jpg,.jpeg,.png,.pdf"
+                maxFiles={5}
+              />
             </div>
 
             {/* Event Images Upload */}
-            <div className="flex flex-col">
-              <Label className={cn("mb-2", theme === "dark" ? "text-white" : "text-[#333333]")}>Upload Event Images</Label>
-              <div 
-                className={cn(
-                  "border-2 border-dashed rounded-lg p-3 text-center",
-                  theme === "dark" 
-                    ? "border-[#444444]" 
-                    : "border-[#A0A0A0]",
-                  errors.eventImageFiles ? 'border-red-500' : ''
-                )}
-                onDragOver={handleDragOver}
-                onDrop={(e) => {
-                  handleDrop(e, setEventImageFiles, 5);
-                  setErrors(prev => ({ ...prev, eventImageFiles: undefined }));
+            <div>
+              <Label className={cn("mb-4", theme === "dark" ? "text-white" : "text-[#333333]")}>
+                Upload Event Images
+              </Label>
+              <FileUploadSection 
+                files={eventImageFiles}
+                onFileChange={(newFiles) => {
+                  const limitedFiles = newFiles.slice(0, 5 - certificateFiles.length);
+                  setCertificateFiles(prev => [...prev, ...limitedFiles]);
                 }}
-              >
-                <UploadIcon className={cn("mx-auto mb-2 w-10 h-10", theme === "dark" ? "text-[#AAAAAA]" : "text-[#A0A0A0]")} />
-                <p className={cn("text-xs", theme === "dark" ? "text-[#AAAAAA]" : "text-[#A0A0A0]")}>Drag & Drop or Click to Upload</p>
-                <p className={cn("text-xs", theme === "dark" ? "text-[#AAAAAA]" : "text-[#A0A0A0]")}>
-                  Accepted formats: JPEG, PNG, WebP (Max 5 files)
-                </p>
-                <input 
-                  type="file" 
-                  accept=".jpg,.jpeg,.png,.webp"
-                  multiple
-                  className="hidden"
-                  id="eventImageUpload"
-                  onChange={(e) => {
-                    handleFileUpload(e.target.files, setEventImageFiles, 5);
-                    setErrors(prev => ({ ...prev, eventImageFiles: undefined }));
-                  }}
-                />
-                <label 
-                  htmlFor="eventImageUpload" 
-                  className={cn(
-                    "cursor-pointer",
-                    theme === "dark" 
-                      ? "bg-[#2C2C2C] text-[#AAAAAA] border border-[#444444]" 
-                      : "bg-white text-black border border-[#A0A0A0]"
-                  )}
-                >
-                  Choose Files
-                </label>
-                {eventImageFiles.length > 0 && (
-                  <div className="mt-2">
-                    <p className={cn("text-xs", theme === "dark" ? "text-[#AAAAAA]" : "text-[#A0A0A0]")}>
-                      {eventImageFiles.length} file(s) selected
-                    </p>
-                  </div>
-                )}
-                <ErrorMessage message={errors.eventImageFiles} />
-              </div>
+                onFileRemove={(index) => {
+                  const updatedFiles = [...eventImageFiles];
+                  updatedFiles.splice(index, 1);
+                  setEventImageFiles(updatedFiles);
+                }}
+                label="Click to upload event images (JPG, PNG, max 5 files)"
+                accept=".jpg,.jpeg,.png"
+                maxFiles={5}
+              />
             </div>
           </div>
         );
@@ -449,6 +383,145 @@ const EventForm: React.FC = () => {
       default:
         return null;
     }
+  };
+
+  const FileUploadSection = ({ 
+    files, 
+    onFileChange, 
+    onFileRemove, 
+    accept = ".jpg,.jpeg,.png,.pdf", 
+    multiple = true,
+    label = "Upload Files" 
+  }) => {
+    const { theme } = useTheme();
+
+    return (
+      <div className="space-y-4">
+        <label 
+          htmlFor="file-upload"
+          className={cn(
+            "block w-full p-6 text-center cursor-pointer rounded-lg transition-colors group",
+            theme === 'dark'
+              ? "bg-[#2C2C2C] hover:bg-[#3C3C3C]"
+              : "bg-gray-100 hover:bg-gray-200"
+          )}
+        >
+          <input 
+            type="file" 
+            id="file-upload"
+            multiple={multiple}
+            accept={accept}
+            className="hidden"
+            onChange={(e) => {
+              const uploadedFiles = e.target.files 
+                ? Array.from(e.target.files) 
+                : [];
+              onFileChange(uploadedFiles);
+            }}
+          />
+          <div className="flex flex-col items-center justify-center space-y-3">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              className={cn(
+                "w-12 h-12 mb-2 transition-colors",
+                theme === 'dark'
+                  ? "text-gray-400 group-hover:text-gray-300"
+                  : "text-gray-500 group-hover:text-gray-600"
+              )}
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" 
+              />
+            </svg>
+            <p 
+              className={cn(
+                "text-sm transition-colors",
+                theme === 'dark'
+                  ? "text-gray-300 group-hover:text-white"
+                  : "text-gray-600 group-hover:text-black"
+              )}
+            >
+              {label}
+            </p>
+          </div>
+        </label>
+
+        {/* Uploaded Files Preview */}
+        {files.length > 0 && (
+          <div 
+            className={cn(
+              "grid grid-cols-3 gap-4",
+              theme === 'dark' ? "text-gray-300" : "text-gray-700"
+            )}
+          >
+            {files.map((file, index) => (
+              <div 
+                key={index} 
+                className={cn(
+                  "relative p-3 rounded-lg flex items-center justify-between",
+                  theme === 'dark'
+                    ? "bg-[#2C2C2C]" 
+                    : "bg-gray-100"
+                )}
+              >
+                <div className="flex items-center space-x-2">
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    className={cn(
+                      "w-6 h-6",
+                      theme === 'dark' ? "text-gray-400" : "text-gray-500"
+                    )}
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0013.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" 
+                    />
+                  </svg>
+                  <span className="text-sm truncate max-w-[150px]">
+                    {file.name}
+                  </span>
+                </div>
+                <button 
+                  onClick={() => onFileRemove(index)}
+                  className={cn(
+                    "p-1 rounded-full transition-colors",
+                    theme === 'dark'
+                      ? "hover:bg-gray-700 text-gray-400 hover:text-white"
+                      : "hover:bg-gray-200 text-gray-500 hover:text-black"
+                  )}
+                >
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    className="w-4 h-4" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M6 18L18 6M6 6l12 12" 
+                    />
+                  </svg>
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
   };
 
   
