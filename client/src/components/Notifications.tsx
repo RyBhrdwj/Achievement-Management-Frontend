@@ -92,7 +92,7 @@ const Notifications: React.FC = () => {
           className={cn(
             "absolute right-0 top-full mt-2 w-80 rounded-lg shadow-lg z-50 border",
             theme === "dark" 
-              ? "bg-[#1E1E1E] border-[#2C2C2C] text-white" 
+              ? "bg-gray-900  border-[#2C2C2C] text-white" 
               : "bg-white border-gray-200"
           )}
         >
@@ -132,11 +132,11 @@ const Notifications: React.FC = () => {
                   className={cn(
                     "flex items-start justify-between p-4 border-b last:border-b-0 transition-colors duration-200",
                     theme === "dark" 
-                      ? "border-[#2C2C2C] hover:bg-[#2C2C2C]" 
+                      ? "border-[#2C2C2C] hover:bg-gray-800" 
                       : "border-gray-100 hover:bg-gray-50",
                     notification.isUnread 
                       ? (theme === "dark" 
-                          ? "bg-[#2A2A2A]" 
+                          ? "bg-blue-950" 
                           : "bg-blue-50")
                       : ""
                   )}

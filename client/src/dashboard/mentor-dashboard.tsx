@@ -101,7 +101,7 @@ function App() {
         label: 'Achievements',
         data: [3, 5, 2, 6, 4, 7],
         backgroundColor: '#C7A4F5',
-        borderRadius: 5,
+        borderRadius: 5
       }
     ]
   };
@@ -157,7 +157,7 @@ function App() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Mobile Menu Button */}
       <button
         className="lg:hidden fixed top-4 left-4 z-50 p-2.5 bg-white rounded-lg shadow-md hover:bg-gray-50 transition-colors"
@@ -193,7 +193,7 @@ function App() {
       {/* Sidebar */}
       <div
         className={`
-          fixed lg:static h-screen bg-white shadow-lg z-40
+          fixed lg:static h-screen bg-white dark:bg-gray-900 shadow-lg z-40
           transition-all duration-300 ease-in-out
           ${isSidebarOpen ? 'w-[300px]' : 'w-0 '}
           ${isMobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
@@ -210,15 +210,15 @@ function App() {
           `}>
             {isSidebarOpen ? (
               <>
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
                 <input 
                   type="text" 
                   placeholder="Search mentees..." 
-                  className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border-0 rounded-lg focus:ring-2 focus:ring-purple-200 text-sm"
+                  className="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-800 border-0 rounded-lg focus:ring-2 focus:ring-purple-200 text-sm"
                 />
               </>
             ) : (
-              <button className="p-2.5 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+              <button className="p-2.5 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 transition-colors">
                 <Search className="w-5 h-5 text-gray-400" />
               </button>
             )}
@@ -227,7 +227,7 @@ function App() {
           {/* Mentee List */}
           <div className="flex-grow overflow-y-auto">
             {isSidebarOpen && (
-              <h3 className="font-semibold mb-4 text-gray-800">Mentees</h3>
+              <h3 className="font-semibold mb-4 text-gray-800 dark:text-gray-200">Mentees</h3>
             )}
             <div className="space-y-2">
               {menteeData.map(mentee => (
@@ -237,7 +237,7 @@ function App() {
                     flex items-center rounded-lg cursor-pointer transition-all
                     ${selectedMentee === mentee.id 
                       ? 'bg-purple-100 border-purple-200 shadow-sm' 
-                      : 'hover:bg-gray-50'
+                      : 'hover:bg-gray-50 dark:hover:bg-gray-800'
                     }
                     ${!isSidebarOpen ? 'p-2 justify-center' : 'p-3'}
                   `}
@@ -253,7 +253,7 @@ function App() {
                   />
                   {isSidebarOpen && (
                     <div>
-                      <p className="font-medium text-gray-800">{mentee.name}</p>
+                      <p className="font-medium text-gray-800 dark:text-gray-200">{mentee.name}</p>
                       <p className="text-xs text-gray-500">{mentee.enrollment}</p>
                     </div>
                   )}
@@ -264,7 +264,7 @@ function App() {
 
           {/* Mentor Profile */}
           <div className={`
-            mt-6 bg-purple-50 rounded-xl
+            mt-6 bg-purple-50 dark:bg-purple-800 rounded-xl
             ${!isSidebarOpen ? 'p-2' : 'p-4'}
           `}>
             {isSidebarOpen ? (
@@ -276,13 +276,13 @@ function App() {
                     className="w-12 h-12 rounded-full object-cover mr-3"
                   />
                   <div>
-                    <p className="font-semibold text-gray-800">Suman Mam</p>
+                    <p className="font-semibold text-gray-800 dark:text-gray-200">Suman Mam</p>
                     <span className="inline-block bg-purple-200 text-purple-700 text-xs px-2 py-1 rounded-full">
                       Admin
                     </span>
                   </div>
                 </div>
-                <button className="w-full py-2 px-4 bg-white hover:bg-gray-50 rounded-lg text-gray-700 flex items-center justify-center gap-2 transition-colors">
+                <button className="w-full py-2 px-4 text-white bg-purple-500 dark:bg-white hover:bg-purple-400 dark:hover:bg-purple-200 rounded-lg dark:text-gray-700 flex items-center justify-center gap-2 transition-colors">
                   <Settings className="w-4 h-4" />
                   Settings
                 </button>
@@ -310,21 +310,21 @@ function App() {
       `}>
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
           {/* Requests Table */}
-          <div className="xl:col-span-3 bg-white shadow-lg rounded-xl overflow-hidden">
+          <div className="xl:col-span-3 bg-white dark:bg-gray-900 shadow-lg rounded-xl overflow-hidden">
             <div className="p-6">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <div>
-                  <h2 className="text-xl font-bold text-gray-800">Requests</h2>
+                  <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">Requests</h2>
                   <p className="text-gray-500 text-sm">
                     Review and manage mentee achievement submissions
                   </p>
                 </div>
                 <div className="flex gap-2">
-                  <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                    <Filter className="w-5 h-5 text-gray-600" />
+                  <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                    <Filter className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                   </button>
-                  <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                    <Download className="w-5 h-5 text-gray-600" />
+                  <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                    <Download className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                   </button>
                 </div>
               </div>
@@ -332,7 +332,7 @@ function App() {
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="bg-gray-50">
+                    <tr className="bg-gray-50 dark:bg-gray-800">
                       <th className="p-3 text-left">
                         <input 
                           type="checkbox" 
@@ -341,12 +341,12 @@ function App() {
                           className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                         />
                       </th>
-                      <th className="p-3 text-left text-sm font-semibold text-gray-600">Achievement</th>
-                      <th className="p-3 text-left text-sm font-semibold text-gray-600">Date</th>
-                      <th className="p-3 text-left text-sm font-semibold text-gray-600">Type</th>
-                      <th className="p-3 text-left text-sm font-semibold text-gray-600">Student</th>
-                      <th className="p-3 text-left text-sm font-semibold text-gray-600">Status</th>
-                      <th className="p-3 text-left text-sm font-semibold text-gray-600">Actions</th>
+                      <th className="p-3 text-left text-sm font-semibold text-gray-500">Achievement</th>
+                      <th className="p-3 text-left text-sm font-semibold text-gray-500">Date</th>
+                      <th className="p-3 text-left text-sm font-semibold text-gray-500">Type</th>
+                      <th className="p-3 text-left text-sm font-semibold text-gray-500">Student</th>
+                      <th className="p-3 text-left text-sm font-semibold text-gray-500">Status</th>
+                      <th className="p-3 text-left text-sm font-semibold text-gray-500">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -404,12 +404,12 @@ function App() {
           {/* Right Column */}
           <div className="space-y-6">
             {/* Top Performers */}
-            <div className="bg-white shadow-lg rounded-xl p-6">
+            <div className="bg-white dark:bg-gray-900 shadow-lg rounded-xl p-6">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-lg font-bold text-gray-800">Top Performers</h3>
+                <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200">Top Performers</h3>
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-gray-500">Sort by</span>
-                  <select className="text-sm bg-transparent border-0 focus:ring-2 focus:ring-purple-200 rounded-lg">
+                  <select className="text-sm bg-transparent border-0 focus:ring-2 focus:ring-purple-200 rounded-lg text-gray-500">
                     <option>Achievements</option>
                     <option>Recent</option>
                   </select>
@@ -422,7 +422,7 @@ function App() {
                     key={mentee.id}
                     className={`
                       flex items-center p-3 rounded-lg transition-colors
-                      ${mentee.id === 1 ? 'bg-yellow-50' : 'hover:bg-gray-50'}
+                      ${mentee.id === 1 ? 'bg-yellow-50 dark:bg-gray-800' : 'hover:bg-gray-50 dark:hover:bg-gray-800'}
                     `}
                   >
                     <img 
@@ -431,7 +431,7 @@ function App() {
                       className="w-10 h-10 rounded-full object-cover mr-3"
                     />
                     <div className="flex-grow">
-                      <p className="font-medium text-gray-800">{mentee.name}</p>
+                      <p className="font-medium text-gray-800 dark:text-gray-200">{mentee.name}</p>
                       <p className="text-xs text-gray-500">{mentee.enrollment}</p>
                     </div>
                     <div className="flex gap-2">
@@ -456,7 +456,7 @@ function App() {
             </div>
 
             {/* Performance Chart */}
-            <div className="bg-white shadow-lg rounded-xl p-6">
+            <div className="bg-white dark:bg-gray-900 shadow-lg rounded-xl p-6">
               <div className="h-[300px]">
                 <Bar data={chartData} options={chartOptions} />
               </div>
