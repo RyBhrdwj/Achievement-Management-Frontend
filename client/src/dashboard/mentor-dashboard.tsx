@@ -351,7 +351,7 @@ function App() {
                   </thead>
                   <tbody>
                     {requestsData.map(request => (
-                      <tr key={request.id} className="border-b hover:bg-gray-50 transition-colors">
+                      <tr key={request.id} className="border-b hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                         <td className="p-3">
                           <input 
                             type="checkbox" 
