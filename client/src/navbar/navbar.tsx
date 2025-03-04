@@ -9,7 +9,7 @@ const Navbar: React.FC = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <nav className="flex items-center justify-between px-4 py-2 border-b bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
+    <nav className="flex fixed w-screen z-50 shadow-xl items-center justify-between px-4 py-2 border-b bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
       <div className="flex justify-center items-center gap-2">
         <img src={Logo} alt="Logo" className="h-10 w-auto" />
         <h1>Achievement Management</h1>

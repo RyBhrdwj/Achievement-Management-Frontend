@@ -6,7 +6,9 @@ function App() {
   return (
     <ThemeProvider>
       <Navbar />
+      <main className="pt-14">
       <Outlet />
+      </main>
     </ThemeProvider>
   );
 }

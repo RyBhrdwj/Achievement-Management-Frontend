@@ -23,7 +23,7 @@ const Dashboard = () => {
               <Calendar />
             </div>
             <div className="lg:col-span-3">
-            <RecentAchievements  />;
+            <RecentAchievements  />
             </div>
           </div>
         </div>
