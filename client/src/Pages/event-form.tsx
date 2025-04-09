@@ -22,6 +22,26 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import { useTheme } from "@/context/ThemeProvider";
 import { cn } from "@/lib/utils";
+import { api } from "@/api";
+import { useNavigate } from "react-router-dom";
+import { log } from "console";
+
+const Logger = (isEnabled: boolean = true) => {
+  let enable = isEnabled;
+
+  return {
+    log: (...args: any[]) => {
+      if (enable) console.log(...args);
+    },
+    enable: () => {
+      enable = true;
+    },
+    disable: () => {
+      enable = false;
+    },
+  };
+};
+const logger = Logger();
 
 type EventType =
   | "technical"
@@ -34,8 +54,9 @@ type EventType =
 
 type ResultType = "won" | "runner-up" | "participated";
 
-const EventForm: React.FC = () => {
+const EventForm = () => {
   const { theme } = useTheme();
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [eventName, setEventName] = useState("");
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -90,26 +111,55 @@ const EventForm: React.FC = () => {
   };
 
   const handleNextStep = () => {
+    logger.log("Current Step:", currentStep);
     if (validateStep()) {
       if (currentStep < 3) {
         setCurrentStep((prev) => prev + 1);
       } else {
-        // Final submission
-        console.log("Form Data:", {
-          eventName,
-          date,
-          isOffline,
-          eventType: eventType === "other" ? customEventType : eventType,
-          organizedBy,
-          result,
-          runnerUpPosition,
-          certificateFiles,
-          eventImageFiles,
-        });
+        handleSubmit();
+      }
+    } else {
+      logger.log("Validation failed:", errors);
+    }
+  };
+
+  const handleSubmit = async () => {
+    logger.log("Handling form submission...");
+
+    if (validateStep()) {
+      const formData = {
+        eventName,
+        date,
+        isOffline,
+        eventType: eventType === "other" ? customEventType : eventType,
+        organizedBy,
+        result,
+        runnerUpPosition,
+        certificateFiles,
+        eventImageFiles,
+      };
+
+      try {
+        const response = await api.addAchievement(formData);
+
+        if (response.status !== 200) {
+          throw new Error(`API responded with status: ${response.status}`);
+        }
+
         toast({
           title: "Success",
           description: "Event added successfully!",
           variant: "default",
+        });
+
+        navigate("/");
+      } catch (error) {
+        logger.log("Error submitting form:", error);
+
+        toast({
+          title: "Error",
+          description: "Failed to add the event. Please try again.",
+          variant: "destructive",
         });
       }
     }
@@ -197,7 +247,6 @@ const EventForm: React.FC = () => {
                       setDate(selectedDate);
                       setErrors((prev) => ({ ...prev, date: undefined }));
                     }}
-                    
                     initialFocus
                   />
                 </PopoverContent>
@@ -659,8 +708,7 @@ const EventForm: React.FC = () => {
   const StepIndicator = () => {
     const stepTitles = ["Event Details", "Event Type", "Profile Data"];
     return (
-      <div
-        className={"text-center mb-8 "}>
+      <div className={"text-center mb-8 "}>
         <div className="flex justify-between items-center mb-2">
           {[1, 2, 3].map((step) => (
             <div
@@ -671,14 +719,12 @@ const EventForm: React.FC = () => {
                   ? "bg-purple-600 text-white"
                   : "bg-gray-300 text-gray-600 border-gray-300 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-800"
               )}
-              
             >
               {step}
             </div>
           ))}
         </div>
-        <div
-          className={"flex justify-between text-gray-500"}>
+        <div className={"flex justify-between text-gray-500"}>
           {stepTitles.map((title, index) => (
             <span key={index} className="text-sm">
               {title}
@@ -709,7 +755,9 @@ const EventForm: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <h1 className="text-center text-xl font-bold text-purple-500 dark:text-white pb-10">Add Achievement</h1>
+        <h1 className="text-center text-xl font-bold text-purple-500 dark:text-white pb-10">
+          Add Achievement
+        </h1>
         {/* Step Indicator */}
         <StepIndicator />
 
