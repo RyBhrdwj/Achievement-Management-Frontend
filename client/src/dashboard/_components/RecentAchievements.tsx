@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Table,
   TableBody,
@@ -28,6 +28,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import * as XLSX from 'xlsx';
+import { api } from '@/api'
 
 const getStatusStyles = (status: string) => {
   switch(status.toLowerCase()) {
@@ -117,6 +118,24 @@ export function RecentAchievements() {
   });
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
+
+  useEffect(() => {
+    const fetchAchievements = async () => {
+      try {
+        const response = await api.getAllAchievements();
+
+        if (response.status === 200 && response.data.status === 'success') {
+          setAchievements(response.data.achievements);
+        } else {
+          console.error('Failed to fetch achievements:', response.data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching achievements:', error);
+      }
+    };
+
+    fetchAchievements();
+  }, []);
 
   const uniqueTypes = Array.from(new Set(initialAchievements.map(a => a.type)));
   const uniqueModes = Array.from(new Set(initialAchievements.map(a => a.mode)));
