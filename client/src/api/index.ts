@@ -1,25 +1,25 @@
-import { api } from './axiosInstance'
+import { apiInstance } from './axiosInstance'
 import { achievementRoutes } from './routes';
 
-export const achievementApi = {
+export const api = {
   addAchievement: (data: any) =>
-    api.post(achievementRoutes.addAchievement, data),
+    apiInstance.post(achievementRoutes.addAchievement, data),
 
   addCertificate: (id: string) =>
-    api.patch(achievementRoutes.addCertificate(id)),
+    apiInstance.patch(achievementRoutes.addCertificate(id)),
 
   editAchievement: (id: string, data: any) =>
-    api.patch(achievementRoutes.editAchievement(id), data),
+    apiInstance.patch(achievementRoutes.editAchievement(id), data),
 
   deleteAchievement: (id: string) =>
-    api.delete(achievementRoutes.deleteAchievement(id)),
+    apiInstance.delete(achievementRoutes.deleteAchievement(id)),
 
   getAchievement: (id: string) =>
-    api.get(achievementRoutes.getAchievement(id)),
+    apiInstance.get(achievementRoutes.getAchievement(id)),
 
   getAllAchievements: () =>
-    api.get(achievementRoutes.getAllAchievements),
+    apiInstance.get(achievementRoutes.getAllAchievements),
 
   exportUserAchievements: () =>
-    api.get(achievementRoutes.exportUserAchievements),
+    apiInstance.get(achievementRoutes.exportUserAchievements),
 };
