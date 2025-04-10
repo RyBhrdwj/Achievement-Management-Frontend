@@ -24,7 +24,6 @@ import { useTheme } from "@/context/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { api } from "@/api";
 import { useNavigate } from "react-router-dom";
-import { log } from "console";
 
 const Logger = (isEnabled: boolean = true) => {
   let enable = isEnabled;
@@ -120,11 +119,15 @@ const EventForm = () => {
       }
     } else {
       logger.log("Validation failed:", errors);
+
+      if (currentStep == 3) {
+        logger.log("certificateFiles", certificateFiles);
+        logger.log("eventImageFiles", eventImageFiles);
+      }
     }
   };
 
   const handleSubmit = async () => {
-    logger.log("Handling form submission...");
 
     if (validateStep()) {
       const formData = {
