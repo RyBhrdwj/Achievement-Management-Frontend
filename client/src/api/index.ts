@@ -1,5 +1,7 @@
-import { apiInstance } from './axiosInstance'
-import { achievementRoutes } from './routes';
+import { apiInstance } from "./axiosInstance";
+import { achievementRoutes } from "./routes/achievementRoutes";
+import { notificationRoutes } from "./routes/notificationRoutes";
+import { announcementRoutes } from "./routes/announcementRoutes";
 
 export const api = {
   addAchievement: (data: any) =>
@@ -22,4 +24,26 @@ export const api = {
 
   exportUserAchievements: () =>
     apiInstance.get(achievementRoutes.exportUserAchievements),
+
+  createNotification: (data: { content: string }) =>
+    apiInstance.post(notificationRoutes.createNotification, data),
+
+  updateNotificationStatus: (id: number, status: string) =>
+    apiInstance.patch(notificationRoutes.updateNotificationStatus(id), {
+      status,
+    }),
+
+  getStudentNotifications: () =>
+    apiInstance.get(notificationRoutes.getStudentNotifications),
+
+  getAllNotifications: () =>
+    apiInstance.get(notificationRoutes.getAllNotifications),
+
+  addAnnouncement: (data: any) =>
+    apiInstance.post(announcementRoutes.addAnnouncement, data),
+
+  getAnnouncements: () => apiInstance.get(announcementRoutes.getAnnouncements),
+
+  deleteAnnouncement: (id: number) =>
+    apiInstance.delete(announcementRoutes.deleteAnnouncement(id)),
 };
